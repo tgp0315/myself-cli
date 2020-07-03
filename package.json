@@ -1,6 +1,6 @@
 {
   "name": "myself-cli",
-  "version": "1.2.0",
+  "version": "1.0.1",
   "description": "通用项目脚手架",
   "main": "index.js",
   "scripts": {
