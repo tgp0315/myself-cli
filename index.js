@@ -3,7 +3,6 @@ const program = require("commander");
 const download = require("download-git-repo");
 const inquirer = require("inquirer");
 const fs = require("fs");
-const ora = require("ora");
 const chalk = require("chalk");
 const shell = require("shelljs");
 const child =require("child_process");
@@ -36,6 +35,7 @@ program
     },
   ])
   .then(answers => {
+    console.log("正在下载模板，请耐心等待...");
     downLoadTemplate(`direct:${answers.giturl}/${answers.type}.git#master`, name)
     .then(() => {
       console.log(symbols.success, chalk.green("项目初始化完成"));
@@ -50,7 +50,7 @@ program
         console.log("配置文件更新完成");
         await shell.cd(name);
         await shell.rm("-rf", "./.git");
-        await loadCmd(`npm install`)
+        await loadCmd(`cnpm i`)
       })
     }).catch(err => {
       console.log(symbols.error, chalk.red(`拉取远程仓库失败${err}`));
@@ -75,10 +75,8 @@ let updateJsonFile = (fileName, obj) => {
 let downLoadTemplate = async (api, ProjectName) => {
   return new Promise((resolve, reject) => {
     download(api, ProjectName, {clone: true}, (err) => {
-      const spinner = ora("正在下载模板...");
-      spinner.start();
       if(err) {
-        spinner.fail();
+        console.log(symbols.error, chalk.red(`模板下载失败${err}`));
         reject(err);
       }else{
         resolve();
@@ -87,7 +85,14 @@ let downLoadTemplate = async (api, ProjectName) => {
   });
 };
 let loadCmd = async(cmd, text) =>{
-  await child.exec(cmd);
-  console.log("安装依赖安装完成");
+  console.log("正在安装依赖，请耐心等待...");
+  await child.exec(cmd, async (error, stdout, stderr) => {
+    if(error) {
+      console.log(symbols.error, chalk.red(`安装依赖失败${error}`));
+      return;
+    }
+    console.log(symbols.success, chalk.green(`安装依赖成功`))
+    await shell.exit(1);
+  });
 }
 program.parse(process.argv);
