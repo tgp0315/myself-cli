@@ -1,5 +1,5 @@
 {
-  "name": "myself-vue-cli",
+  "name": "@myself/cli",
   "version": "1.1.1",
   "description": "通用项目脚手架",
   "main": "index.js",
