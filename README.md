@@ -4,7 +4,7 @@
 
 ### command
 ````
-npm i -g myself-cli
+npm i -g ain-cli
 
 (sudo) cmt init [new project name]
 
