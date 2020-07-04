@@ -1,4 +1,4 @@
-### self-cli
+### ain-cli
 
 ##### download common template
 
