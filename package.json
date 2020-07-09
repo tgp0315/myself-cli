@@ -1,6 +1,6 @@
 {
-  "name": "ain-cli",
-  "version": "1.0.3",
+  "name": "ainself-cli",
+  "version": "1.0.0",
   "description": "通用项目脚手架",
   "main": "index.js",
   "scripts": {
